@@ -1,15 +1,17 @@
-import React from "react";
-import CreateList from "../components/CreateList";
-import Lists from "../components/Lists";
-import Layout from "../components/shared/Layout";
+import React from "react"
+import CreateList from "../components/CreateList"
+import Lists from "../components/Lists"
+import Layout from "../components/shared/Layout"
+import { UserContext } from "../index"
 
 function HomePage() {
-  return (
-    <Layout>
-      <CreateList />
-      <Lists />
-    </Layout>
-  );
+    const user = React.useContext(UserContext)
+    return (
+        <Layout>
+            <CreateList user={user} />
+            <Lists />
+        </Layout>
+    )
 }
 
-export default HomePage;
+export default HomePage

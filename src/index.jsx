@@ -8,18 +8,22 @@ import Loading from "./components/shared/Loading"
 import SignIn from "./components/SignIn"
 import useAuth from "./hooks/useAuth"
 
+export const UserContext = React.createContext()
+
 function App() {
     const { user, loading } = useAuth()
     if (loading) return <Loading />
-    return user ? <AuthApp /> : <UnAuthApp />
+    return user ? <AuthApp user={user} /> : <UnAuthApp />
 }
 
-function AuthApp() {
+function AuthApp({ user }) {
     return (
         <BrowserRouter>
             <Switch>
-                <Route path="/:listId" component={ListPage} />
-                <Route exact path="/" component={HomePage} />
+                <UserContext.Provider value={user}>
+                    <Route path="/:listId" component={ListPage} />
+                    <Route exact path="/" component={HomePage} />
+                </UserContext.Provider>
             </Switch>
         </BrowserRouter>
     )
