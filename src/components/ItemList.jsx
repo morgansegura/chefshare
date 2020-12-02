@@ -30,6 +30,11 @@ function ItemList({ listId }) {
 function Item({ listId, item }) {
     const { id, name, link, image, author, created } = item
     const date = created ? created.toDate().toLocaleString() : null
+    function handleDeleteItem() {
+        if (window.confirm("Are you sure you want to delet this?")) {
+            db.deleteListItem(listId, id)
+        }
+    }
     return (
         <div className="xl:w-1/4 md:w-1/2 p-4">
             <div className="bg-gray-800 p-6 rounded-lg">
@@ -50,7 +55,10 @@ function Item({ listId, item }) {
                     <span className="leading-relaxed text-base">
                         Posted {date}
                     </span>
-                    <button className="inline-flex text-white bg-red-500 border-0 py-1 px-2 focus:outline-none hover:bg-red-600 rounded text-lg">
+                    <button
+                        onClick={handleDeleteItem}
+                        className="inline-flex text-white bg-red-500 border-0 py-1 px-2 focus:outline-none hover:bg-red-600 rounded text-lg"
+                    >
                         Delete
                     </button>
                 </div>
