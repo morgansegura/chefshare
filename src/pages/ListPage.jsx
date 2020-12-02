@@ -9,10 +9,11 @@ import Loading from "../components/shared/Loading"
 import * as db from "../firestore"
 import { UserContext } from ".."
 import useSWR from "swr"
+import useCopyClipboard from "react-use-clipboard"
 
 function ListPage({ location }) {
     const user = React.useContext(UserContext)
-    const [isCopied, setCopied] = useCopuClipboard(window.location.href, {
+    const [isCopied, setCopied] = useCopyClipboard(window.location.href, {
         successDuration: 1000,
     })
     const listId = location.pathname
