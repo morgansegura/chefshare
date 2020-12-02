@@ -97,3 +97,28 @@ export async function getList(listId) {
         throw Error(error)
     }
 }
+
+export async function createListItem({ user, listId, item }) {
+    try {
+        const response = await fetch(
+            `https://screenshotapi.net/api/v1/screenshot?url=${item.link}&token=H8UNKEHG5VRRYVHE2D8YLTAEQVBAHHMM`
+        )
+        const { screenshot } = await response.json()
+        db.collection("lists")
+            .doc(listId)
+            .collection("items")
+            .add({
+                name: item.name,
+                link: item.link,
+                image: screenshot,
+                created: firebase.firestore.FieldValue.serverTimestamp(),
+                author: {
+                    id: user.uid,
+                    username: user.displayName,
+                },
+            })
+    } catch (error) {
+        console.error(error)
+        throw new Error(error)
+    }
+}
