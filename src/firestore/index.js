@@ -86,3 +86,14 @@ export async function createList(list, user) {
         ],
     })
 }
+
+export async function getList(listId) {
+    try {
+        const list = await db.collection("lists").doc(listId).get()
+        if (!list.exists) throw Error(`List doesn't exist.`)
+        return list.data()
+    } catch (error) {
+        console.error(error)
+        throw Error(error)
+    }
+}
